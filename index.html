@@ -3,251 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taman Harapan</title>
+    <title>Pilih Untuk Hidup</title>
     <style>
-        /* --- CSS Reset & Dasar --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #fcfcfc; /* Putih sedikit hangat */
-            color: #444;
-            overflow: hidden; /* Mencegah scroll vertikal */
+            background-color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
         }
 
-        /* --- Kontainer Utama (Slider Horizontal) --- */
-        .main-container {
+        /* Container Horizontal */
+        .main-wrapper {
             display: flex;
-            width: 300vw; /* 3 halaman, jadi 300% lebar viewport */
+            width: 300vw;
             height: 100vh;
-            overflow-x: auto; /* Mengaktifkan scroll horizontal */
-            scroll-snap-type: x mandatory; /* Membuat efek 'magnet' saat di-scroll */
-            -webkit-overflow-scrolling: touch; /* Scroll halus di iOS */
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
         }
+        .main-wrapper::-webkit-scrollbar { display: none; }
 
-        /* Menghilangkan scrollbar agar estetik */
-        .main-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* --- Gaya Halaman/Section --- */
         section {
-            width: 100vw; /* Setiap halaman selembar layar penuh */
+            width: 100vw;
             height: 100vh;
+            scroll-snap-align: start;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            position: relative;
+            padding: 20px;
             text-align: center;
-            scroll-snap-align: start; /* Titik berhenti scroll */
-            position: relative; /* Untuk posisi elemen dekorasi */
         }
 
-        /* --- Dekorasi Pohon (Halaman 1) --- */
-        .tree-decoration {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 150px; /* Sesuaikan ukuran pohon di HP */
-            opacity: 0.7;
-            z-index: 1;
-        }
-
-        /* --- Gaya Tipografi --- */
-        h1 {
-            font-size: 2rem;
-            font-weight: 300; /* Tipis agar estetik */
-            color: #2c3e50;
+        /* Simbol Larangan Menyerah (Pengganti Visual Sensitif) */
+        .warning-sign {
+            width: 120px;
+            height: 120px;
+            border: 8px solid #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 20px;
-            z-index: 2;
+            position: relative;
+        }
+        .warning-sign::before {
+            content: '✕';
+            font-size: 80px;
+            color: #e74c3c;
+            font-weight: bold;
         }
 
-        p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #666;
-            max-width: 500px;
-            margin-bottom: 30px;
-            z-index: 2;
-        }
+        h1 { font-size: 1.8rem; color: #2c3e50; margin-bottom: 10px; z-index: 5; }
+        p { font-size: 1rem; color: #7f8c8d; max-width: 300px; z-index: 5; }
 
-        .highlight {
-            color: #88b04b; /* Hijau alam lembut */
-            font-weight: 500;
-        }
-
-        /* --- Indikator Scroll (opsional) --- */
-        .scroll-hint {
-            position: absolute;
-            bottom: 30px;
-            font-size: 0.8rem;
-            color: #aaa;
-            animation: sideToSide 2s infinite;
-        }
-
-        @keyframes sideToSide {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
-        }
-
-        /* =========================================
-           ANIMASI KUPU-KUPU REALISTIS (Pure CSS)
-           ========================================= */
-        
-        .butterfly-container {
-            position: fixed; /* Tetap di layar */
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Agar tidak mengganggu klik */
-            z-index: 10;
-        }
-
+        /* Kupu-kupu Realistik & Mengikuti Page */
         .butterfly {
             position: absolute;
-            width: 20px; /* Ukuran badan */
-            height: 20px;
-            perspective: 500px;
+            width: 30px;
+            height: 30px;
             transform-style: preserve-3d;
+            z-index: 10;
+            pointer-events: none;
         }
 
-        /* Bagian sayap */
         .wing {
             position: absolute;
-            width: 20px;
-            height: 25px;
-            border-radius: 50% 50% 0 50%;
-            /* Warna kupu-kupu: Biru muda estetik */
-            background: linear-gradient(to bottom right, #a1c4fd, #c2e9fb);
+            width: 15px;
+            height: 20px;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            border-radius: 50% 50% 20% 50%;
             opacity: 0.8;
-            box-shadow: 0 0 5px rgba(161, 196, 253, 0.5);
         }
 
-        .left-wing {
+        .wing-left {
             left: 0;
             transform-origin: right center;
-            animation: flap-left 0.2s ease-in-out infinite;
+            animation: flap-l 0.15s infinite alternate;
         }
 
-        .right-wing {
+        .wing-right {
             right: 0;
             transform-origin: left center;
-            border-radius: 50% 50% 50% 0;
-            animation: flap-right 0.2s ease-in-out infinite;
+            border-radius: 50% 50% 50% 20%;
+            animation: flap-r 0.15s infinite alternate;
         }
 
-        /* Keyframes untuk kepakan sayap (realistis cepat) */
-        @keyframes flap-left {
-            0%, 100% { transform: rotateY(0deg); }
-            50% { transform: rotateY(70deg); }
+        @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(75deg); } }
+        @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-75deg); } }
+
+        /* Posisi Kupu-kupu yang tersebar di sepanjang 300vw */
+        .bf1 { top: 20%; left: 30vw; animation: float 10s infinite; }
+        .bf2 { top: 60%; left: 120vw; animation: float 12s infinite; }
+        .bf3 { top: 30%; left: 210vw; animation: float 8s infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-50px) rotate(10deg); }
         }
 
-        @keyframes flap-right {
-            0%, 100% { transform: rotateY(0deg); }
-            50% { transform: rotateY(-70deg); }
+        /* Pohon Estetik */
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            opacity: 0.2;
+            z-index: 1;
         }
-
-        /* Variasi Kupu-Kupu 1 (Jalur Terbang) */
-        .bf-1 {
-            top: 20%; left: 10%;
-            animation: fly-path-1 15s linear infinite;
-            transform: scale(0.8);
-        }
-
-        /* Variasi Kupu-Kupu 2 (Warna & Jalur berbeda) */
-        .bf-2 {
-            top: 50%; left: 80%;
-            animation: fly-path-2 20s linear infinite;
-            transform: scale(0.6);
-        }
-        .bf-2 .wing { background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee); } /* Pink/Ungu */
-
-        /* Variasi Kupu-Kupu 3 */
-        .bf-3 {
-            top: 70%; left: 40%;
-            animation: fly-path-3 18s linear infinite;
-            transform: scale(1);
-        }
-
-        /* Keyframes Jalur Terbang (Acak) */
-        @keyframes fly-path-1 {
-            0% { transform: translate(0, 0) rotate(0deg) scale(0.8); }
-            25% { transform: translate(50vw, 20vh) rotate(20deg) scale(0.8); }
-            50% { transform: translate(80vw, -10vh) rotate(-10deg) scale(0.8); }
-            75% { transform: translate(30vw, 50vh) rotate(10deg) scale(0.8); }
-            100% { transform: translate(0, 0) rotate(0deg) scale(0.8); }
-        }
-
-        @keyframes fly-path-2 {
-            0% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
-            10% { opacity: 1; }
-            50% { transform: translate(-70vw, 30vh) rotate(-30deg) scale(0.6); }
-            90% { opacity: 1; }
-            100% { transform: translate(0, 0) rotate(0deg) scale(0.6); opacity: 0; }
-        }
-
-        @keyframes fly-path-3 {
-            0% { transform: translate(0, 0) rotate(10deg) scale(1); }
-            33% { transform: translate(20vw, -40vh) rotate(-10deg) scale(1); }
-            66% { transform: translate(-30vw, 10vh) rotate(20deg) scale(1); }
-            100% { transform: translate(0, 0) rotate(10deg) scale(1); }
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Hamparan Kupu-kupu (Tetap di layar) -->
-    <div class="butterfly-container">
-        <div class="butterfly bf-1">
-            <div class="wing left-wing"></div>
-            <div class="wing right-wing"></div>
-        </div>
-        <div class="butterfly bf-2">
-            <div class="wing left-wing"></div>
-            <div class="wing right-wing"></div>
-        </div>
-        <div class="butterfly bf-3">
-            <div class="wing left-wing"></div>
-            <div class="wing right-wing"></div>
-        </div>
-    </div>
-
-    <!-- Kontainer Slide Horizontal -->
-    <div class="main-container">
-
-        <!-- HALAMAN 1 -->
-        <section id="page1">
-            <!-- Dekorasi Pohon (Menggunakan SVG agar ringan & estetik) -->
-            <svg class="tree-decoration" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10 C 30 30, 30 60, 50 90 C 70 60, 70 30, 50 10" fill="#88b04b" opacity="0.5"/>
-                <path d="M50 30 C 40 40, 40 55, 50 70 C 60 55, 60 40, 50 30" fill="#a4c677" opacity="0.7"/>
-                <rect x="48" y="70" width="4" height="30" fill="#8d6e63"/>
-            </svg>
-
-            <h1>Selamat Datang</h1>
-            <p>Di tempat ini, kamu boleh beristirahat. Biarkan pikiranmu tenang sejenak bersama <span class="highlight">embusan angin</span> dan kepakan sayap kupu-kupu.</p>
-            <div class="scroll-hint">Geser ke kiri →</div>
+    <div class="main-wrapper">
+        <!-- Page 1: Peringatan -->
+        <section>
+            <div class="warning-sign"></div>
+            <h1>JANGAN MENYERAH</h1>
+            <p>Pikiranmu mungkin berbohong, mengatakan tak ada jalan keluar. Tapi mengakhiri semuanya <b>DILARANG</b>. Kamu jauh lebih berharga dari masalahmu.</p>
         </section>
 
-        <!-- HALAMAN 2 -->
-        <section id="page2">
-            <h1>Bertumbuhlah</h1>
-            <p>"Seperti <span class="highlight">pohon</span>, kita butuh waktu untuk akar kita menjadi kuat sebelum bisa tumbuh tinggi. Jangan buru-buru, nikmati prosesnya."</p>
+        <!-- Page 2: Harapan -->
+        <section>
+            <h1>Lihat Sekitarmu</h1>
+            <p>Seperti pohon yang tetap tegak meski badai menerjang, kamu punya kekuatan untuk tumbuh kembali.</p>
+            <img class="tree" src="https://www.transparentpng.com/download/tree/W8M7lB-tree-transparent-image.png" alt="Tree">
         </section>
 
-        <!-- HALAMAN 3 -->
-        <section id="page3">
-            <h1>Kamu Berharga</h1>
-            <p>Kepompong yang gelap hanyalah jalan menuju kebebasan sebagai <span class="highlight">kupu-kupu</span> yang indah. Bertahanlah, harimu akan tiba.</p>
+        <!-- Page 3: Kebebasan -->
+        <section>
+            <h1>Metamorfosis</h1>
+            <p>Jadilah seperti kupu-kupu. Lewati masa gelap kepompong untuk terbang bebas. Bertahanlah sedikit lagi.</p>
         </section>
 
+        <!-- Kupu-kupu yang tersebar di koordinat lebar -->
+        <div class="butterfly bf1"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
+        <div class="butterfly bf2"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
+        <div class="butterfly bf3"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
     </div>
 
 </body>
