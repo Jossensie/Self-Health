@@ -10,7 +10,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #1a1a1a;
+            background: #0f1419;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #d1d8e0;
             overflow: hidden;
@@ -22,10 +22,10 @@
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 45px;
-            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -35,22 +35,32 @@
             backdrop-filter: blur(10px);
             transition: 0.3s;
         }
-        .music-control:hover { background: rgba(255, 255, 255, 0.2); }
-        .music-control.playing { animation: pulse 2s infinite; }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        .music-control.active {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
-        /* Latar Belakang Mendung */
-        .rain-bg {
+        /* Efek Hujan Mendung */
+        .rain-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #2c3e50, #000000);
+            background: linear-gradient(to bottom, #1e272e, #000000);
             z-index: -1;
-            opacity: 0.8;
+            overflow: hidden;
+        }
+
+        .drop {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            width: 1px;
+            height: 50px;
+            top: -100px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
         }
 
         .viewport {
@@ -72,70 +82,68 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 30px;
-            border-radius: 32px;
-            max-width: 340px; width: 90%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 45px 35px;
+            border-radius: 40px;
+            max-width: 350px; width: 90%;
             text-align: center; z-index: 10;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 1.6rem;
-            margin-bottom: 20px; color: #f1f2f6;
+            font-style: italic; font-size: 1.7rem;
+            margin-bottom: 25px; color: #f1f2f6;
+            letter-spacing: -0.5px;
         }
 
-        p { line-height: 1.8; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
+        p { line-height: 1.9; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
 
         .btn-open {
-            margin-top: 25px; padding: 12px 24px;
-            background: transparent; color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            margin-top: 30px; padding: 12px 28px;
+            background: transparent; color: #d1d8e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px; cursor: pointer; transition: 0.4s;
+            font-size: 13px; letter-spacing: 1px;
         }
+        .btn-open:hover { background: #fff; color: #000; }
 
-        .interaction-area { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .interaction-area { display: none; margin-top: 30px; animation: fadeIn 1.2s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         input {
-            width: 100%; padding: 12px; border-radius: 12px;
+            width: 100%; padding: 14px; border-radius: 15px;
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05); color: white;
-            margin: 15px 0 10px 0; text-align: center; outline: none;
+            background: rgba(255,255,255,0.03); color: white;
+            margin: 15px 0 15px 0; text-align: center; outline: none;
         }
 
-        .btn-submit { background: #57606f; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; }
+        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 12px 30px; border-radius: 12px; cursor: pointer; font-weight: 500; }
 
         .star {
             position: absolute; background: #f1c40f;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 12px; height: 12px; pointer-events: none; z-index: 100;
+            width: 14px; height: 14px; pointer-events: none; z-index: 100;
         }
 
-        .copyright { margin-top: 40px; font-size: 10px; color: #57606f; text-transform: uppercase; letter-spacing: 2px; }
-        .hint { position: fixed; bottom: 20px; width: 100%; text-align: center; font-size: 8px; color: #57606f; letter-spacing: 4px; }
+        .copyright { margin-top: 45px; font-size: 9px; color: #57606f; text-transform: uppercase; letter-spacing: 3px; }
+        .hint { position: fixed; bottom: 25px; width: 100%; text-align: center; font-size: 8px; color: #3d4e5e; letter-spacing: 5px; }
     </style>
 </head>
 <body>
 
-    <!-- Tombol Kontrol Musik -->
     <div class="music-control" id="musicBtn" onclick="toggleMusic()">
         <span id="musicIcon">🎵</span>
     </div>
 
-    <!-- Background Music -->
-    <audio id="bgm" loop>
-        <source src="https://files.catbox.moe/k3v5k6.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="rain-bg"></div>
-    <div class="hint">GESER PERLAHAN</div>
+    <div class="rain-container" id="rain"></div>
+    <div class="hint">GESER DALAM HENING</div>
 
     <div class="viewport">
+        <!-- PAGE 1 -->
         <section>
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
@@ -143,6 +151,7 @@
             </div>
         </section>
 
+        <!-- PAGE 2 -->
         <section>
             <div class="card">
                 <h1>Jangan mengakhiri bab ini.</h1>
@@ -150,6 +159,7 @@
             </div>
         </section>
 
+        <!-- PAGE 3 -->
         <section>
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
@@ -158,38 +168,83 @@
                 <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
 
                 <div class="interaction-area" id="interactionArea">
-                    <p style="font-weight: 500; color: #f1f2f6;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
-                    <input type="number" id="ageInput" placeholder="Ketik angka...">
+                    <p style="font-weight: 500; color: #f1f2f6;">Hallooo apakah kami boleh tau umur kamu berapa?</p>
+                    <input type="number" id="ageInput" placeholder="Umurmu...">
                     <button class="btn-submit" onclick="processAge(event)">Kirim</button>
-                    <div id="resultDisplay" style="margin-top:20px; font-size: 14px; font-weight: 500;"></div>
+                    <div id="resultDisplay" style="margin-top:25px; font-size: 14px; line-height: 1.6;"></div>
                 </div>
 
-                <div class="copyright">
-                    Selasar Pulang © Remy
-                </div>
+                <div class="copyright">Selasar Pulang © Remy</div>
             </div>
         </section>
     </div>
 
     <script>
-        const audio = document.getElementById('bgm');
-        const musicBtn = document.getElementById('musicBtn');
-        const musicIcon = document.getElementById('musicIcon');
+        // --- INSTRUMEN SEDIH (WEB AUDIO API) ---
+        let audioCtx = null;
         let isPlaying = false;
+        let melodyTimeout;
 
-        function toggleMusic() {
-            if (isPlaying) {
-                audio.pause();
-                musicIcon.innerText = "🎵";
-                musicBtn.classList.remove('playing');
-            } else {
-                audio.play();
-                musicIcon.innerText = "⏸️";
-                musicBtn.classList.add('playing');
-            }
-            isPlaying = !isPlaying;
+        function playNote(freq, duration, startTime) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            
+            osc.type = 'triangle'; 
+            osc.frequency.setValueAtTime(freq, startTime);
+            
+            gain.gain.setValueAtTime(0, startTime);
+            gain.gain.linearRampToValueAtTime(0.1, startTime + 0.1);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+            
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            osc.start(startTime);
+            osc.stop(startTime + duration);
         }
 
+        function playMelody() {
+            if (!isPlaying) return;
+            const now = audioCtx.currentTime;
+            // Melodi Piano Sedih (A minor melankolis)
+            const melody = [440, 392, 349, 329, 293, 261, 246, 220]; 
+            melody.forEach((note, i) => {
+                playNote(note, 3, now + (i * 1.5));
+            });
+            melodyTimeout = setTimeout(playMelody, 12000);
+        }
+
+        function toggleMusic() {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            const btn = document.getElementById('musicBtn');
+            const icon = document.getElementById('musicIcon');
+
+            if (isPlaying) {
+                isPlaying = false;
+                icon.innerText = "🎵";
+                btn.classList.remove('active');
+                clearTimeout(melodyTimeout);
+            } else {
+                isPlaying = true;
+                icon.innerText = "⏸️";
+                btn.classList.add('active');
+                playMelody();
+            }
+        }
+
+        // --- EFEK HUJAN ---
+        const rainContainer = document.getElementById('rain');
+        for (let i = 0; i < 50; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'drop';
+            drop.style.left = Math.random() * 100 + 'vw';
+            drop.style.animationDuration = 0.5 + Math.random() * 1.5 + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            rainContainer.appendChild(drop);
+        }
+
+        // --- LOGIKA INTERAKSI ---
         function showQuestion() {
             document.getElementById('btnOpen').style.display = 'none';
             document.getElementById('interactionArea').style.display = 'block';
@@ -206,23 +261,18 @@
             star.animate([
                 { transform: 'scale(1)', opacity: 1 },
                 { transform: `translate(${dX}px, ${dY}px) scale(0)`, opacity: 0 }
-            ], { duration: 2000, easing: 'ease-out' }).onfinish = () => star.remove();
+            ], { duration: 2500, easing: 'ease-out' }).onfinish = () => star.remove();
         }
 
         function processAge(e) {
             const val = document.getElementById('ageInput').value;
             const res = document.getElementById('resultDisplay');
             if(!val) return;
-
-            for(let i=0; i<25; i++) createStar(e.clientX, e.clientY);
-
+            for(let i=0; i<20; i++) createStar(e.clientX, e.clientY);
             const n = parseInt(val);
             setTimeout(() => {
-                if (n <= 20) {
-                    res.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. ✨";
-                } else {
-                    res.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. ☁️";
-                }
+                if (n <= 20) res.innerHTML = "Kamu terlalu muda untuk menyerah sekarang. Dunia masih butuh ceritamu. ✨";
+                else res.innerHTML = "Teruslah bertahan, setiap badai pasti punya titik henti. Pelangi menantimu. ☁️";
             }, 400);
         }
     </script>
