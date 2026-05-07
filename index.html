@@ -3,173 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetaplah Disini</title>
+    <title>Satu Napas Lagi</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;1,300&family=Inter:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&family=Playfair+Display:ital@1&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #ffffff;
-            color: #2c3e50;
-            font-family: 'Inter', sans-serif;
+            background: #fdfdfd;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #2d3436;
             overflow: hidden;
         }
 
-        /* Container Horizontal */
-        .slider {
+        /* Background Soft Gradient */
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 226, 0.28) 90%);
+            z-index: -1;
+        }
+
+        /* Horizontal Scroll System */
+        .viewport {
             display: flex;
             width: 300vw;
             height: 100vh;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
         }
-        .slider::-webkit-scrollbar { display: none; }
+        .viewport::-webkit-scrollbar { display: none; }
 
         section {
             width: 100vw;
             height: 100vh;
             scroll-snap-align: start;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 30px;
             position: relative;
-            padding: 40px;
         }
 
-        .content {
-            max-width: 500px;
+        /* Glassmorphism Card */
+        .card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 40px 30px;
+            border-radius: 32px;
+            max-width: 340px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
             text-align: center;
             z-index: 10;
         }
 
-        h2 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 2.2rem;
-            font-weight: 300;
+        h1 {
+            font-family: 'Playfair Display', serif;
             font-style: italic;
-            margin-bottom: 25px;
-            opacity: 0.9;
-            letter-spacing: -0.5px;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #1e272e;
         }
 
         p {
-            font-size: 1.1rem;
             line-height: 1.8;
-            color: #576574;
+            font-size: 1rem;
+            color: #636e72;
             font-weight: 300;
         }
 
-        /* --- Animasi Kupu-Kupu Realistik --- */
-        .butterfly-world {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 300vw; /* Panjang mengikuti slider */
-            height: 100vh;
+        /* Pohon Minimalis (Siluet Lembut) */
+        .tree-container {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            opacity: 0.15;
             pointer-events: none;
-            z-index: 5;
         }
+        .tree-svg { width: 120px; height: auto; }
 
+        /* Kupu-kupu Realistik */
         .butterfly {
             position: absolute;
+            width: 25px;
+            height: 25px;
             transform-style: preserve-3d;
-            animation: fly-float 15s infinite ease-in-out;
+            z-index: 20;
         }
 
         .wing {
             position: absolute;
-            width: 18px;
-            height: 24px;
-            background: linear-gradient(135deg, #d1d8e0, #a5b1c2);
-            border-radius: 50% 50% 20% 60%;
-            opacity: 0.6;
+            width: 12px;
+            height: 18px;
+            background: linear-gradient(to top, #81ecec, #00cec9);
+            border-radius: 50% 50% 10% 50%;
+            opacity: 0.7;
         }
-
-        .left {
-            transform-origin: right center;
-            animation: flap-left 0.15s infinite alternate ease-in-out;
-        }
-
-        .right {
-            right: 0;
+        .wing.right {
+            left: 12px;
+            border-radius: 50% 50% 50% 10%;
             transform-origin: left center;
-            border-radius: 50% 50% 60% 20%;
-            animation: flap-right 0.15s infinite alternate ease-in-out;
+            animation: flap-r 0.15s infinite alternate;
+        }
+        .wing.left {
+            transform-origin: right center;
+            animation: flap-l 0.15s infinite alternate;
         }
 
-        @keyframes flap-left { from { transform: rotateY(0deg); } to { transform: rotateY(75deg); } }
-        @keyframes flap-right { from { transform: rotateY(0deg); } to { transform: rotateY(-75deg); } }
+        @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(70deg); } }
+        @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
 
-        @keyframes fly-float {
-            0%, 100% { transform: translateY(0) rotate(5deg); }
-            50% { transform: translateY(-40px) rotate(-5deg); }
+        /* Jalur Terbang yang lebih dinamis */
+        .bf-1 { top: 20%; left: 10%; animation: fly1 20s infinite linear; }
+        .bf-2 { top: 60%; left: 85%; animation: fly2 25s infinite linear; }
+
+        @keyframes fly1 {
+            0% { transform: translate(0,0) rotate(0deg); }
+            33% { transform: translate(40vw, 20vh) rotate(30deg); }
+            66% { transform: translate(70vw, -10vh) rotate(-20deg); }
+            100% { transform: translate(100vw, 10vh) rotate(10deg); }
         }
 
-        /* --- Dekorasi Pohon Lembut --- */
-        .tree-bg {
-            position: absolute;
-            bottom: -20px;
-            width: 100%;
-            height: 40vh;
-            background: url('https://www.transparentpng.com/download/tree/W8M7lB-tree-transparent-image.png') no-repeat bottom center;
-            background-size: contain;
-            opacity: 0.05;
-            z-index: 1;
-            filter: grayscale(100%);
+        @keyframes fly2 {
+            0% { transform: translate(0,0) scale(0.8); }
+            50% { transform: translate(-50vw, -30vh) scale(1.1); }
+            100% { transform: translate(-90vw, 10vh) scale(0.8); }
         }
 
         .hint {
             position: fixed;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.8rem;
-            color: #bdc3c7;
-            letter-spacing: 2px;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #b2bec3;
             text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div class="hint">Geser Perlahan</div>
+    <div class="bg-glow"></div>
+    <div class="hint">Geser perlahan</div>
 
-    <!-- Kupu-kupu yang menyebar di koordinat luas -->
-    <div class="butterfly-world">
-        <div class="butterfly" style="top:20vh; left:15vw;"><div class="wing left"></div><div class="wing right"></div></div>
-        <div class="butterfly" style="top:50vh; left:85vw;"><div class="wing left" style="background:#ced6e0"></div><div class="wing right" style="background:#ced6e0"></div></div>
-        <div class="butterfly" style="top:15vh; left:140vw;"><div class="wing left"></div><div class="wing right"></div></div>
-        <div class="butterfly" style="top:70vh; left:210vw;"><div class="wing left"></div><div class="wing right"></div></div>
-        <div class="butterfly" style="top:30vh; left:280vw;"><div class="wing left"></div><div class="wing right"></div></div>
-    </div>
+    <!-- Kupu-Kupu -->
+    <div class="butterfly bf-1"><div class="wing left"></div><div class="wing right"></div></div>
+    <div class="butterfly bf-2"><div class="wing left" style="background:#fab1a0"></div><div class="wing right" style="background:#fab1a0"></div></div>
 
-    <div class="slider">
+    <div class="viewport">
         <!-- PAGE 1 -->
         <section>
-            <div class="tree-bg"></div>
-            <div class="content">
-                <h2>Mungkin hari ini sangat berat...</h2>
-                <p>Napasmu terasa sesak, dan dunia seolah kehilangan warnanya. Tapi dengarlah, mengakhiri perjalananmu bukanlah jawaban atas rasa sakit itu.</p>
+            <div class="card">
+                <h1>Heningkan sejenak...</h1>
+                <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
+            </div>
+            <div class="tree-container">
+                <svg class="tree-svg" viewBox="0 0 100 100"><path d="M50 100 L50 70 M50 75 L30 55 M50 85 L70 65" stroke="#2d3436" stroke-width="2" fill="none"/></svg>
             </div>
         </section>
 
         <!-- PAGE 2 -->
         <section>
-            <div class="tree-bg" style="transform: scaleX(-1);"></div>
-            <div class="content">
-                <h2>Ceritamu belum selesai.</h2>
-                <p>Rasa sakit yang kamu rasakan hari ini adalah bukti bahwa kamu masih memiliki kapasitas untuk merasakan. Jika ada kekuatan untuk menyerah, gunakanlah sedikit saja sisa kekuatan itu untuk bertahan satu hari lagi.</p>
+            <div class="card">
+                <h1>Jangan mengakhiri bab ini.</h1>
+                <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
+            </div>
+            <div class="tree-container">
+                <svg class="tree-svg" viewBox="0 0 100 100"><path d="M50 100 L50 60 M50 80 L20 50 M50 90 L80 60" stroke="#2d3436" stroke-width="1.5" fill="none"/></svg>
             </div>
         </section>
 
         <!-- PAGE 3 -->
         <section>
-            <div class="content">
-                <h2>Pulanglah ke dirimu sendiri.</h2>
-                <p>Dunia akan kehilangan sesuatu yang tak tergantikan jika kamu pergi. Kepakan sayap kupu-kupu mungkin kecil, tapi ia mengubah arah angin. Kehadiranmu pun begitu. Tetaplah disini.</p>
+            <div class="card">
+                <h1>Pulang ke arah cahaya.</h1>
+                <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya. Tetaplah bersama kami, duniamu masih membutuhkanmu.</p>
             </div>
         </section>
     </div>
