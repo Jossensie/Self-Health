@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satu Alasan Lagi</title>
+    <style>
+        :root {
+            --bg: #fdf6f0;
+            --text: #4a4a4a;
+            --accent: #8db596;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        h1 { font-size: 1.5rem; color: var(--accent); }
+        p { line-height: 1.6; font-size: 1.1rem; }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .quote {
+            font-style: italic;
+            margin-top: 30px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Terima kasih sudah bertahan sejauh ini.</h1>
+    <p>Dunia mungkin terasa sangat bising dan berat hari ini, tapi kehadiranmu adalah sebuah anugerah yang nyata.</p>
+    <p>Istirahatlah sejenak, ambil napas dalam-dalam. Kamu tidak harus menyelesaikan semuanya hari ini.</p>
+    
+    <a href="#" class="button" onclick="ubahPesan()">Butuh alasan lain?</a>
+
+    <div class="quote" id="quote">"Bunga tidak mekar dalam semalam, begitu juga dengan ketenanganmu."</div>
+</div>
+
+<script>
+    const pesan = [
+        "Kamu layak dicintai, terutama oleh dirimu sendiri.",
+        "Mendung tidak bertahan selamanya, matahari akan kembali.",
+        "Satu langkah kecil tetaplah sebuah kemajuan.",
+        "Dunia lebih indah karena ada kamu di dalamnya.",
+        "Tidak apa-apa untuk merasa tidak baik-baik saja."
+    ];
+
+    function ubahPesan() {
+        const randomPesan = pesan[Math.floor(Math.random() * pesan.length)];
+        document.getElementById('quote').innerText = `"${randomPesan}"`;
+    }
+</script>
+
+</body>
+</html>
