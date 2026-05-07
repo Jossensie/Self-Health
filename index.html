@@ -10,10 +10,31 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #fdfdfd;
+            background: #2c3e50;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #2d3436;
+            color: #d1d8e0;
             overflow: hidden;
+        }
+
+        /* Overlay Awal untuk Musik */
+        #music-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #1a1a1a;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* Latar Belakang Mendung */
+        .rain-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, #2c3e50, #000000);
+            z-index: -1;
         }
 
         .viewport {
@@ -38,39 +59,16 @@
             position: relative;
         }
 
-        /* --- TEMA PER HALAMAN --- */
-        #page1 { background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 226, 0.28) 90%); }
-        
-        #page2 { 
-            background: linear-gradient(180deg, #fdfdfd 0%, #e8f5e9 100%); 
-        }
-        #page2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40px;
-            background: url('https://www.transparentpng.com/download/grass/Z9vP4S-grass-free-transparent-png.png') repeat-x;
-            background-size: contain;
-            opacity: 0.2;
-        }
-
-        /* Tema Berharap: Sunrise Gradation */
-        #page3 { 
-            background: linear-gradient(180deg, #fdfdfd 0%, #ffeaa7 50%, #fab1a0 100%); 
-            overflow: hidden;
-        }
-
         .card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(44, 62, 80, 0.5);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 40px 30px;
             border-radius: 32px;
             max-width: 340px;
             width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
             text-align: center;
             z-index: 10;
         }
@@ -80,13 +78,13 @@
             font-style: italic;
             font-size: 1.8rem;
             margin-bottom: 20px;
-            color: #1e272e;
+            color: #ecf0f1;
         }
 
         p {
             line-height: 1.8;
             font-size: 1rem;
-            color: #636e72;
+            color: #bdc3c7;
             font-weight: 300;
         }
 
@@ -101,44 +99,46 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-open {
+        .btn-open, .btn-start {
             margin-top: 25px;
             padding: 12px 24px;
-            background: #2d3436;
+            background: rgba(236, 240, 241, 0.1);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 50px;
             cursor: pointer;
             transition: 0.3s;
+            font-family: inherit;
         }
+
+        .btn-start:hover { background: white; color: black; }
 
         input {
             width: 100%;
             padding: 12px;
             border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+            color: white;
             margin: 15px 0 10px 0;
             text-align: center;
             outline: none;
         }
 
         .btn-submit {
-            background: #e17055;
+            background: #4b6584;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
-            position: relative;
         }
 
-        /* --- Animasi Bintang --- */
         .star {
             position: absolute;
-            background: #ffeaa7;
+            background: #f1c40f;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 15px;
-            height: 15px;
+            width: 12px; height: 12px;
             pointer-events: none;
             z-index: 100;
         }
@@ -146,9 +146,8 @@
         .copyright {
             margin-top: 40px;
             font-size: 11px;
-            color: #636e72;
+            color: #7f8c8d;
             letter-spacing: 0.5px;
-            opacity: 0.8;
         }
 
         .hint {
@@ -158,34 +157,46 @@
             text-align: center;
             font-size: 9px;
             letter-spacing: 3px;
-            color: #b2bec3;
+            color: #576574;
             text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div class="hint">Geser perlahan</div>
+    <!-- Overlay Musik -->
+    <div id="music-overlay">
+        <div style="max-width: 280px;">
+            <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 10px;">Gunakan earphone.</h2>
+            <p style="font-size: 14px; margin-bottom: 20px;">Lagu: Kekal - Nadin Amizah</p>
+            <button class="btn-start" onclick="startExperience()">Mulai Melangkah</button>
+        </div>
+    </div>
+
+    <!-- Audio (Silakan ganti URL source jika kamu punya file mp3 sendiri) -->
+    <audio id="bgm" loop>
+        <source src="https://files.catbox.moe/k3v5k6.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="rain-bg"></div>
+    <div class="hint">Geser dalam hening</div>
 
     <div class="viewport">
-        <!-- PAGE 1 -->
-        <section id="page1">
+        <section>
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
                 <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
             </div>
         </section>
 
-        <!-- PAGE 2 -->
-        <section id="page2">
+        <section>
             <div class="card">
                 <h1>Jangan mengakhiri bab ini.</h1>
                 <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
             </div>
         </section>
 
-        <!-- PAGE 3 -->
-        <section id="page3">
+        <section>
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
                 <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
@@ -193,10 +204,10 @@
                 <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
 
                 <div class="interaction-area" id="interactionArea">
-                    <p style="font-weight: 500; color: #1e272e;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
-                    <input type="number" id="ageInput" placeholder="Masukkan angka...">
+                    <p style="font-weight: 500;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
+                    <input type="number" id="ageInput" placeholder="Umurmu...">
                     <button class="btn-submit" onclick="processAge(event)">Kirim</button>
-                    <div id="resultDisplay" style="margin-top:15px; font-weight:500; min-height: 20px;"></div>
+                    <div id="resultDisplay" style="margin-top:15px; color: #ecf0f1;"></div>
                 </div>
 
                 <div class="copyright">
@@ -207,6 +218,13 @@
     </div>
 
     <script>
+        const audio = document.getElementById('bgm');
+
+        function startExperience() {
+            document.getElementById('music-overlay').style.display = 'none';
+            audio.play().catch(e => console.log("Audio play failed: ", e));
+        }
+
         function showQuestion() {
             document.getElementById('btnOpen').style.display = 'none';
             document.getElementById('interactionArea').style.display = 'block';
@@ -216,49 +234,28 @@
             const star = document.createElement('div');
             star.className = 'star';
             document.body.appendChild(star);
-
-            const destinationX = x + (Math.random() - 0.5) * 200;
-            const destinationY = y + (Math.random() - 0.5) * 200;
-            const rotation = Math.random() * 360;
-
+            const destX = x + (Math.random() - 0.5) * 250;
+            const destY = y + (Math.random() - 0.5) * 250;
             star.style.left = `${x}px`;
             star.style.top = `${y}px`;
-
-            const animation = star.animate([
-                { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
-                { transform: `translate(${destinationX - x}px, ${destinationY - y}px) rotate(${rotation}deg)`, opacity: 0 }
-            ], {
-                duration: 1000 + Math.random() * 500,
-                easing: 'ease-out'
-            });
-
-            animation.onfinish = () => star.remove();
+            star.animate([
+                { transform: `scale(1)`, opacity: 1 },
+                { transform: `translate(${destX - x}px, ${destY - y}px) scale(0)`, opacity: 0 }
+            ], { duration: 1500, easing: 'ease-out' }).onfinish = () => star.remove();
         }
 
         function processAge(event) {
             const age = document.getElementById('ageInput').value;
             const display = document.getElementById('resultDisplay');
+            if (age === "") return;
             
-            if (age === "") {
-                display.innerText = "Tuliskan umurmu ya..";
-                return;
-            }
-
-            // Jalankan animasi bintang
-            for (let i = 0; i < 15; i++) {
-                createStar(event.clientX, event.clientY);
-            }
+            for (let i = 0; i < 20; i++) createStar(event.clientX, event.clientY);
 
             const n = parseInt(age);
             setTimeout(() => {
-                if (n >= 1 && n <= 20) {
-                    display.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. ✨";
-                } else if (n > 20 && n <= 100) {
-                    display.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. ☀️";
-                } else {
-                    display.innerHTML = "Tetaplah kuat, hari indah akan datang.";
-                }
-            }, 200);
+                if (n <= 20) display.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. ✨";
+                else display.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. ☁️";
+            }, 300);
         }
     </script>
 </body>
