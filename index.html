@@ -16,17 +16,6 @@
             overflow: hidden;
         }
 
-        .bg-glow {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 226, 0.28) 90%);
-            z-index: -1;
-        }
-
         .viewport {
             display: flex;
             width: 300vw;
@@ -49,19 +38,49 @@
             position: relative;
         }
 
+        /* --- TEMA PER HALAMAN --- */
+        #page1 { background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0%, rgba(233, 226, 226, 0.28) 90%); }
+        
+        #page2 { 
+            background: linear-gradient(180deg, #fdfdfd 0%, #e8f5e9 100%); 
+        }
+        /* Dekorasi Rumput Page 2 */
+        #page2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: url('https://www.transparentpng.com/download/grass/Z9vP4S-grass-free-transparent-png.png') repeat-x;
+            background-size: contain;
+            opacity: 0.3;
+        }
+
+        #page3 { 
+            background: linear-gradient(180deg, #fdfdfd 0%, #eceff1 100%); 
+        }
+        /* Dekorasi Manusia Sedih Page 3 */
+        .human-silhouette {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            opacity: 0.1;
+            filter: grayscale(100%);
+        }
+
         .card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             padding: 40px 30px;
             border-radius: 32px;
             max-width: 340px;
             width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
             text-align: center;
             z-index: 10;
-            transition: all 0.5s ease;
         }
 
         h1 {
@@ -79,9 +98,8 @@
             font-weight: 300;
         }
 
-        /* --- Area Interaksi --- */
         .interaction-area {
-            display: none; /* Tersembunyi di awal */
+            display: none;
             margin-top: 20px;
             animation: fadeIn 0.8s ease;
         }
@@ -98,8 +116,6 @@
             color: white;
             border: none;
             border-radius: 50px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 500;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -111,24 +127,15 @@
             border: 1px solid rgba(0,0,0,0.1);
             margin: 15px 0 10px 0;
             text-align: center;
-            outline: none;
         }
 
         .btn-submit {
-            background: #88b04b;
+            background: #81c784;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
-        }
-
-        #resultDisplay {
-            margin-top: 15px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #2d3436;
-            line-height: 1.5;
         }
 
         .copyright {
@@ -154,16 +161,8 @@
             border-radius: 50% 50% 10% 50%;
             opacity: 0.7;
         }
-        .wing.right {
-            left: 12px;
-            border-radius: 50% 50% 50% 10%;
-            transform-origin: left center;
-            animation: flap-r 0.15s infinite alternate;
-        }
-        .wing.left {
-            transform-origin: right center;
-            animation: flap-l 0.15s infinite alternate;
-        }
+        .wing.right { left: 12px; border-radius: 50% 50% 50% 10%; transform-origin: left center; animation: flap-r 0.15s infinite alternate; }
+        .wing.left { transform-origin: right center; animation: flap-l 0.15s infinite alternate; }
         @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(70deg); } }
         @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
 
@@ -184,43 +183,41 @@
 </head>
 <body>
 
-    <div class="bg-glow"></div>
     <div class="hint">Geser perlahan</div>
 
     <div class="butterfly bf-1"><div class="wing left"></div><div class="wing right"></div></div>
 
     <div class="viewport">
-        <!-- PAGE 1 -->
-        <section>
+        <!-- PAGE 1: Awal -->
+        <section id="page1">
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
                 <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
             </div>
         </section>
 
-        <!-- PAGE 2 -->
-        <section>
+        <!-- PAGE 2: Rumput Sejuk -->
+        <section id="page2">
             <div class="card">
                 <h1>Jangan mengakhiri bab ini.</h1>
                 <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
             </div>
         </section>
 
-        <!-- PAGE 3 -->
-        <section>
-            <div class="card" id="finalCard">
+        <!-- PAGE 3: Manusia Sedih & Interaksi -->
+        <section id="page3">
+            <img src="https://cdn-icons-png.flaticon.com/512/3011/3011270.png" class="human-silhouette" alt="Sorrow">
+            <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
                 <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
                 
-                <!-- Tombol Awal -->
                 <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
 
-                <!-- Area Pertanyaan (Muncul setelah klik) -->
                 <div class="interaction-area" id="interactionArea">
                     <p style="font-weight: 500; color: #1e272e;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
                     <input type="number" id="ageInput" placeholder="Masukkan angka...">
                     <button class="btn-submit" onclick="processAge()">Kirim</button>
-                    <div id="resultDisplay"></div>
+                    <div id="resultDisplay" style="margin-top:15px; font-weight:500;"></div>
                 </div>
 
                 <div class="copyright">
