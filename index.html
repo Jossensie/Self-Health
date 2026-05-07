@@ -80,19 +80,17 @@
             font-weight: 300;
         }
 
-        /* Pohon Minimalis (Siluet Lembut) */
-        .tree-container {
+        /* Footer Copyright di Akhir Page */
+        .copyright {
             position: absolute;
-            bottom: 0;
+            bottom: 40px;
             width: 100%;
-            height: 50%;
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            opacity: 0.15;
-            pointer-events: none;
+            text-align: center;
+            font-size: 12px;
+            color: #95a5a6;
+            letter-spacing: 0.5px;
+            font-weight: 300;
         }
-        .tree-svg { width: 120px; height: auto; }
 
         /* Kupu-kupu Realistik */
         .butterfly {
@@ -125,7 +123,6 @@
         @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(70deg); } }
         @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
 
-        /* Jalur Terbang yang lebih dinamis */
         .bf-1 { top: 20%; left: 10%; animation: fly1 20s infinite linear; }
         .bf-2 { top: 60%; left: 85%; animation: fly2 25s infinite linear; }
 
@@ -144,13 +141,14 @@
 
         .hint {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             width: 100%;
             text-align: center;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 3px;
             color: #b2bec3;
             text-transform: uppercase;
+            z-index: 5;
         }
     </style>
 </head>
@@ -170,9 +168,6 @@
                 <h1>Heningkan sejenak...</h1>
                 <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
             </div>
-            <div class="tree-container">
-                <svg class="tree-svg" viewBox="0 0 100 100"><path d="M50 100 L50 70 M50 75 L30 55 M50 85 L70 65" stroke="#2d3436" stroke-width="2" fill="none"/></svg>
-            </div>
         </section>
 
         <!-- PAGE 2 -->
@@ -181,9 +176,6 @@
                 <h1>Jangan mengakhiri bab ini.</h1>
                 <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
             </div>
-            <div class="tree-container">
-                <svg class="tree-svg" viewBox="0 0 100 100"><path d="M50 100 L50 60 M50 80 L20 50 M50 90 L80 60" stroke="#2d3436" stroke-width="1.5" fill="none"/></svg>
-            </div>
         </section>
 
         <!-- PAGE 3 -->
@@ -191,6 +183,11 @@
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
                 <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya. Tetaplah bersama kami, duniamu masih membutuhkanmu.</p>
+            </div>
+            
+            <!-- Copyright sesuai permintaan -->
+            <div class="copyright">
+                Selasar Pulang (The Path Home) © Remy
             </div>
         </section>
     </div>
