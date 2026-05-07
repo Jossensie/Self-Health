@@ -7,19 +7,19 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&family=Playfair+Display:ital@1&display=swap');
 
-        /* Kunci total agar tidak bisa scroll ke bawah */
+        /* RESET & LOCK VERTICAL */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Hilangkan scroll standar */
+            overflow: hidden; /* Kunci scroll bawah secara total */
             background: #0f1419;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #d1d8e0;
+            position: fixed; /* Mencegah tarikan layar di mobile */
         }
 
-        /* Tombol Spotify */
         .spotify-link {
             position: fixed;
             top: 20px;
@@ -35,7 +35,7 @@
             gap: 8px;
             font-size: 12px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             transition: 0.3s ease;
         }
 
@@ -46,29 +46,29 @@
             z-index: -1;
         }
 
-        /* Container Geser Samping */
+        /* HORIZONTAL VIEWPORT ONLY */
         .viewport {
             display: flex;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             overflow-x: auto;
-            overflow-y: hidden; /* Kunci sumbu Y di sini juga */
+            overflow-y: hidden; /* Kunci sumbu Y */
             scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            -ms-overflow-style: none;
         }
         .viewport::-webkit-scrollbar { display: none; }
 
         section {
-            flex: 0 0 100vw; /* Pastikan tiap section tepat 100% lebar layar */
+            flex: 0 0 100vw; /* Paksa lebar tepat 100% lebar layar */
+            width: 100vw;
             height: 100vh;
             scroll-snap-align: start;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
         }
 
         .card {
