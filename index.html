@@ -16,7 +16,6 @@
             overflow: hidden;
         }
 
-        /* Background Soft Gradient */
         .bg-glow {
             position: fixed;
             top: 50%;
@@ -28,7 +27,6 @@
             z-index: -1;
         }
 
-        /* Horizontal Scroll System */
         .viewport {
             display: flex;
             width: 300vw;
@@ -51,7 +49,6 @@
             position: relative;
         }
 
-        /* Glassmorphism Card */
         .card {
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(10px);
@@ -80,19 +77,51 @@
             font-weight: 300;
         }
 
-        /* Footer Copyright di Akhir Page */
-        .copyright {
-            position: absolute;
-            bottom: 40px;
-            width: 100%;
-            text-align: center;
-            font-size: 12px;
-            color: #95a5a6;
-            letter-spacing: 0.5px;
-            font-weight: 300;
+        /* --- Input Styling --- */
+        .input-group {
+            margin-top: 20px;
         }
 
-        /* Kupu-kupu Realistik */
+        input {
+            width: 80%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            outline: none;
+            text-align: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        #resultText {
+            margin-top: 15px;
+            font-style: italic;
+            color: #1e272e;
+            font-weight: 500;
+            min-height: 1.5em;
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            color: #95a5a6;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Kupu-Kupu --- */
         .butterfly {
             position: absolute;
             width: 25px;
@@ -100,7 +129,6 @@
             transform-style: preserve-3d;
             z-index: 20;
         }
-
         .wing {
             position: absolute;
             width: 12px;
@@ -119,36 +147,23 @@
             transform-origin: right center;
             animation: flap-l 0.15s infinite alternate;
         }
-
         @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(70deg); } }
         @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
 
         .bf-1 { top: 20%; left: 10%; animation: fly1 20s infinite linear; }
         .bf-2 { top: 60%; left: 85%; animation: fly2 25s infinite linear; }
-
-        @keyframes fly1 {
-            0% { transform: translate(0,0) rotate(0deg); }
-            33% { transform: translate(40vw, 20vh) rotate(30deg); }
-            66% { transform: translate(70vw, -10vh) rotate(-20deg); }
-            100% { transform: translate(100vw, 10vh) rotate(10deg); }
-        }
-
-        @keyframes fly2 {
-            0% { transform: translate(0,0) scale(0.8); }
-            50% { transform: translate(-50vw, -30vh) scale(1.1); }
-            100% { transform: translate(-90vw, 10vh) scale(0.8); }
-        }
+        @keyframes fly1 { 0% { transform: translate(0,0); } 50% { transform: translate(50vw, 20vh); } 100% { transform: translate(100vw, 0); } }
+        @keyframes fly2 { 0% { transform: translate(0,0); } 50% { transform: translate(-50vw, -20vh); } 100% { transform: translate(-100vw, 0); } }
 
         .hint {
             position: fixed;
-            bottom: 20px;
+            bottom: 15px;
             width: 100%;
             text-align: center;
-            font-size: 10px;
+            font-size: 9px;
             letter-spacing: 3px;
             color: #b2bec3;
             text-transform: uppercase;
-            z-index: 5;
         }
     </style>
 </head>
@@ -157,7 +172,6 @@
     <div class="bg-glow"></div>
     <div class="hint">Geser perlahan</div>
 
-    <!-- Kupu-Kupu -->
     <div class="butterfly bf-1"><div class="wing left"></div><div class="wing right"></div></div>
     <div class="butterfly bf-2"><div class="wing left" style="background:#fab1a0"></div><div class="wing right" style="background:#fab1a0"></div></div>
 
@@ -182,15 +196,44 @@
         <section>
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
-                <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya. Tetaplah bersama kami, duniamu masih membutuhkanmu.</p>
+                <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
+                
+                <div class="input-group">
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Helloo kamu umur berapa?</p>
+                    <input type="number" id="userAge" placeholder="Masukkan umur...">
+                    <br>
+                    <button onclick="checkAge()">Kirim</button>
+                    <p id="resultText"></p>
+                </div>
             </div>
             
-            <!-- Copyright sesuai permintaan -->
             <div class="copyright">
                 Selasar Pulang (The Path Home) © Remy
             </div>
         </section>
     </div>
+
+    <script>
+        function checkAge() {
+            const age = document.getElementById('userAge').value;
+            const result = document.getElementById('resultText');
+            
+            if (age === "") {
+                result.innerText = "Masukkan umurmu dulu ya..";
+                return;
+            }
+
+            const numAge = parseInt(age);
+
+            if (numAge >= 1 && numAge <= 20) {
+                result.innerText = "Kamu terlalu muda untuk mengakhiri hidup.";
+            } else if (numAge >= 21 && numAge <= 100) {
+                result.innerText = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti.";
+            } else {
+                result.innerText = "Tetaplah semangat menjalani hari!";
+            }
+        }
+    </script>
 
 </body>
 </html>
