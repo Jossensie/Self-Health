@@ -16,45 +16,45 @@
             overflow: hidden;
         }
 
-        /* Tombol Musik Minimalis */
-        .music-control {
+        /* Tombol Spotify */
+        .spotify-link {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+            background: #1DB954; /* Warna khas Spotify */
             color: white;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+            transition: 0.3s ease;
         }
 
-        .music-control.active {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        .spotify-link:hover {
+            transform: scale(1.05);
+            background: #1ed760;
         }
 
-        /* Efek Hujan Mendung */
-        .rain-container {
+        /* Latar Belakang Mendung */
+        .rain-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, #1e272e, #000000);
             z-index: -1;
-            overflow: hidden;
         }
 
-        .drop {
+        /* Animasi Hujan Halus */
+        .rain-drop {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             width: 1px;
-            height: 50px;
+            height: 60px;
             top: -100px;
             animation: fall linear infinite;
         }
@@ -82,68 +82,66 @@
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 45px 35px;
-            border-radius: 40px;
-            max-width: 350px; width: 90%;
-            text-align: center; z-index: 10;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 40px 30px;
+            border-radius: 35px;
+            max-width: 340px; width: 90%;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            text-align: center; z-index: 10;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
             font-style: italic; font-size: 1.7rem;
-            margin-bottom: 25px; color: #f1f2f6;
-            letter-spacing: -0.5px;
+            margin-bottom: 20px; color: #f1f2f6;
         }
 
-        p { line-height: 1.9; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
+        p { line-height: 1.8; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
 
         .btn-open {
-            margin-top: 30px; padding: 12px 28px;
-            background: transparent; color: #d1d8e0;
+            margin-top: 25px; padding: 12px 24px;
+            background: transparent; color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px; cursor: pointer; transition: 0.4s;
-            font-size: 13px; letter-spacing: 1px;
+            border-radius: 50px; cursor: pointer; transition: 0.3s;
         }
-        .btn-open:hover { background: #fff; color: #000; }
 
-        .interaction-area { display: none; margin-top: 30px; animation: fadeIn 1.2s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .interaction-area { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         input {
-            width: 100%; padding: 14px; border-radius: 15px;
+            width: 100%; padding: 12px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.03); color: white;
-            margin: 15px 0 15px 0; text-align: center; outline: none;
+            background: rgba(255,255,255,0.05); color: white;
+            margin: 15px 0 10px 0; text-align: center; outline: none;
         }
 
-        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 12px 30px; border-radius: 12px; cursor: pointer; font-weight: 500; }
+        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; }
 
         .star {
             position: absolute; background: #f1c40f;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 14px; height: 14px; pointer-events: none; z-index: 100;
+            width: 12px; height: 12px; pointer-events: none; z-index: 100;
         }
 
-        .copyright { margin-top: 45px; font-size: 9px; color: #57606f; text-transform: uppercase; letter-spacing: 3px; }
-        .hint { position: fixed; bottom: 25px; width: 100%; text-align: center; font-size: 8px; color: #3d4e5e; letter-spacing: 5px; }
+        .copyright { margin-top: 40px; font-size: 10px; color: #57606f; text-transform: uppercase; letter-spacing: 2px; }
+        .hint { position: fixed; bottom: 20px; width: 100%; text-align: center; font-size: 8px; color: #57606f; letter-spacing: 4px; }
     </style>
 </head>
 <body>
 
-    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
-        <span id="musicIcon">🎵</span>
-    </div>
+    <!-- Tombol Spotify -->
+    <a href="https://open.spotify.com/user/31ikkx27wn3du3mrz7yxbgpqem5m?si=YWSh2ztYS2qzcpDiAjwtBg" target="_blank" class="spotify-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.223.367-.703.483-1.07.259-2.937-1.795-6.634-2.201-10.989-1.205-.418.096-.837-.168-.933-.586-.096-.418.168-.837.586-.933 4.773-1.091 8.865-.624 12.147 1.383.367.224.483.704.259 1.071zm1.465-3.262c-.282.457-.881.605-1.338.323-3.36-2.067-8.483-2.665-12.456-1.458-.513.155-1.053-.136-1.208-.65-.155-.513.136-1.053.65-1.208 4.542-1.378 10.187-.703 14.03 1.656.456.28.605.88.322 1.337zm.126-3.413C15.011 8.214 8.274 7.99 4.35 9.182c-.612.185-1.261-.166-1.446-.777-.185-.612.166-1.261.777-1.446 4.496-1.365 11.942-1.11 16.633 1.674.551.327.734 1.041.407 1.592-.327.551-1.041.734-1.592.407z"/></svg>
+        Dengarkan Musik
+    </a>
 
-    <div class="rain-container" id="rain"></div>
-    <div class="hint">GESER DALAM HENING</div>
+    <div id="rain-container"></div>
+    <div class="hint">GESER PERLAHAN</div>
 
     <div class="viewport">
-        <!-- PAGE 1 -->
         <section>
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
@@ -151,7 +149,6 @@
             </div>
         </section>
 
-        <!-- PAGE 2 -->
         <section>
             <div class="card">
                 <h1>Jangan mengakhiri bab ini.</h1>
@@ -159,7 +156,6 @@
             </div>
         </section>
 
-        <!-- PAGE 3 -->
         <section>
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
@@ -168,83 +164,31 @@
                 <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
 
                 <div class="interaction-area" id="interactionArea">
-                    <p style="font-weight: 500; color: #f1f2f6;">Hallooo apakah kami boleh tau umur kamu berapa?</p>
-                    <input type="number" id="ageInput" placeholder="Umurmu...">
+                    <p style="font-weight: 500; color: #f1f2f6;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
+                    <input type="number" id="ageInput" placeholder="Ketik angka...">
                     <button class="btn-submit" onclick="processAge(event)">Kirim</button>
-                    <div id="resultDisplay" style="margin-top:25px; font-size: 14px; line-height: 1.6;"></div>
+                    <div id="resultDisplay" style="margin-top:20px; font-size: 14px; font-weight: 500;"></div>
                 </div>
 
-                <div class="copyright">Selasar Pulang © Remy</div>
+                <div class="copyright">
+                    Selasar Pulang © Remy
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        // --- INSTRUMEN SEDIH (WEB AUDIO API) ---
-        let audioCtx = null;
-        let isPlaying = false;
-        let melodyTimeout;
-
-        function playNote(freq, duration, startTime) {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
-            osc.type = 'triangle'; 
-            osc.frequency.setValueAtTime(freq, startTime);
-            
-            gain.gain.setValueAtTime(0, startTime);
-            gain.gain.linearRampToValueAtTime(0.1, startTime + 0.1);
-            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
-            
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            
-            osc.start(startTime);
-            osc.stop(startTime + duration);
-        }
-
-        function playMelody() {
-            if (!isPlaying) return;
-            const now = audioCtx.currentTime;
-            // Melodi Piano Sedih (A minor melankolis)
-            const melody = [440, 392, 349, 329, 293, 261, 246, 220]; 
-            melody.forEach((note, i) => {
-                playNote(note, 3, now + (i * 1.5));
-            });
-            melodyTimeout = setTimeout(playMelody, 12000);
-        }
-
-        function toggleMusic() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            
-            const btn = document.getElementById('musicBtn');
-            const icon = document.getElementById('musicIcon');
-
-            if (isPlaying) {
-                isPlaying = false;
-                icon.innerText = "🎵";
-                btn.classList.remove('active');
-                clearTimeout(melodyTimeout);
-            } else {
-                isPlaying = true;
-                icon.innerText = "⏸️";
-                btn.classList.add('active');
-                playMelody();
-            }
-        }
-
-        // --- EFEK HUJAN ---
-        const rainContainer = document.getElementById('rain');
-        for (let i = 0; i < 50; i++) {
+        // Animasi Hujan
+        const container = document.getElementById('rain-container');
+        for (let i = 0; i < 40; i++) {
             const drop = document.createElement('div');
-            drop.className = 'drop';
+            drop.className = 'rain-drop';
             drop.style.left = Math.random() * 100 + 'vw';
-            drop.style.animationDuration = 0.5 + Math.random() * 1.5 + 's';
+            drop.style.animationDuration = (Math.random() * 0.5 + 1) + 's';
             drop.style.animationDelay = Math.random() * 2 + 's';
-            rainContainer.appendChild(drop);
+            container.appendChild(drop);
         }
 
-        // --- LOGIKA INTERAKSI ---
         function showQuestion() {
             document.getElementById('btnOpen').style.display = 'none';
             document.getElementById('interactionArea').style.display = 'block';
@@ -261,18 +205,21 @@
             star.animate([
                 { transform: 'scale(1)', opacity: 1 },
                 { transform: `translate(${dX}px, ${dY}px) scale(0)`, opacity: 0 }
-            ], { duration: 2500, easing: 'ease-out' }).onfinish = () => star.remove();
+            ], { duration: 2000, easing: 'ease-out' }).onfinish = () => star.remove();
         }
 
         function processAge(e) {
             const val = document.getElementById('ageInput').value;
             const res = document.getElementById('resultDisplay');
             if(!val) return;
-            for(let i=0; i<20; i++) createStar(e.clientX, e.clientY);
+            for(let i=0; i<25; i++) createStar(e.clientX, e.clientY);
             const n = parseInt(val);
             setTimeout(() => {
-                if (n <= 20) res.innerHTML = "Kamu terlalu muda untuk menyerah sekarang. Dunia masih butuh ceritamu. ✨";
-                else res.innerHTML = "Teruslah bertahan, setiap badai pasti punya titik henti. Pelangi menantimu. ☁️";
+                if (n <= 20) {
+                    res.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup :) ";
+                } else {
+                    res.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti :> ";
+                }
             }, 400);
         }
     </script>
