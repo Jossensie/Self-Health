@@ -57,9 +57,11 @@
             padding: 40px 30px;
             border-radius: 32px;
             max-width: 340px;
+            width: 90%;
             box-shadow: 0 10px 40px rgba(0,0,0,0.03);
             text-align: center;
             z-index: 10;
+            transition: all 0.5s ease;
         }
 
         h1 {
@@ -77,45 +79,60 @@
             font-weight: 300;
         }
 
-        /* --- Input Styling --- */
-        .input-group {
+        /* --- Area Interaksi --- */
+        .interaction-area {
+            display: none; /* Tersembunyi di awal */
             margin-top: 20px;
+            animation: fadeIn 0.8s ease;
         }
 
-        input {
-            width: 80%;
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            outline: none;
-            text-align: center;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        button {
-            padding: 10px 20px;
+        .btn-open {
+            margin-top: 25px;
+            padding: 12px 24px;
             background: #2d3436;
             color: white;
             border: none;
-            border-radius: 12px;
-            cursor: pointer;
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        #resultText {
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.1);
+            margin: 15px 0 10px 0;
+            text-align: center;
+            outline: none;
+        }
+
+        .btn-submit {
+            background: #88b04b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #resultDisplay {
             margin-top: 15px;
-            font-style: italic;
-            color: #1e272e;
+            font-size: 0.95rem;
             font-weight: 500;
-            min-height: 1.5em;
+            color: #2d3436;
+            line-height: 1.5;
         }
 
         .copyright {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
+            margin-top: 40px;
             font-size: 11px;
             color: #95a5a6;
             letter-spacing: 0.5px;
@@ -151,9 +168,7 @@
         @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
 
         .bf-1 { top: 20%; left: 10%; animation: fly1 20s infinite linear; }
-        .bf-2 { top: 60%; left: 85%; animation: fly2 25s infinite linear; }
         @keyframes fly1 { 0% { transform: translate(0,0); } 50% { transform: translate(50vw, 20vh); } 100% { transform: translate(100vw, 0); } }
-        @keyframes fly2 { 0% { transform: translate(0,0); } 50% { transform: translate(-50vw, -20vh); } 100% { transform: translate(-100vw, 0); } }
 
         .hint {
             position: fixed;
@@ -173,7 +188,6 @@
     <div class="hint">Geser perlahan</div>
 
     <div class="butterfly bf-1"><div class="wing left"></div><div class="wing right"></div></div>
-    <div class="butterfly bf-2"><div class="wing left" style="background:#fab1a0"></div><div class="wing right" style="background:#fab1a0"></div></div>
 
     <div class="viewport">
         <!-- PAGE 1 -->
@@ -194,46 +208,52 @@
 
         <!-- PAGE 3 -->
         <section>
-            <div class="card">
+            <div class="card" id="finalCard">
                 <h1>Pulang ke arah cahaya.</h1>
                 <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
                 
-                <div class="input-group">
-                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Helloo kamu umur berapa?</p>
-                    <input type="number" id="userAge" placeholder="Masukkan umur...">
-                    <br>
-                    <button onclick="checkAge()">Kirim</button>
-                    <p id="resultText"></p>
+                <!-- Tombol Awal -->
+                <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
+
+                <!-- Area Pertanyaan (Muncul setelah klik) -->
+                <div class="interaction-area" id="interactionArea">
+                    <p style="font-weight: 500; color: #1e272e;">Helloo kamu umur berapa?</p>
+                    <input type="number" id="ageInput" placeholder="Masukkan angka...">
+                    <button class="btn-submit" onclick="processAge()">Kirim</button>
+                    <div id="resultDisplay"></div>
                 </div>
-            </div>
-            
-            <div class="copyright">
-                Selasar Pulang (The Path Home) © Remy
+
+                <div class="copyright">
+                    Selasar Pulang (The Path Home) © Remy
+                </div>
             </div>
         </section>
     </div>
 
     <script>
-        function checkAge() {
-            const age = document.getElementById('userAge').value;
-            const result = document.getElementById('resultText');
+        function showQuestion() {
+            document.getElementById('btnOpen').style.display = 'none';
+            document.getElementById('interactionArea').style.display = 'block';
+        }
+
+        function processAge() {
+            const age = document.getElementById('ageInput').value;
+            const display = document.getElementById('resultDisplay');
             
             if (age === "") {
-                result.innerText = "Masukkan umurmu dulu ya..";
+                display.innerText = "Tuliskan umurmu ya..";
                 return;
             }
 
-            const numAge = parseInt(age);
-
-            if (numAge >= 1 && numAge <= 20) {
-                result.innerText = "Kamu terlalu muda untuk mengakhiri hidup.";
-            } else if (numAge >= 21 && numAge <= 100) {
-                result.innerText = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti.";
+            const n = parseInt(age);
+            if (n >= 1 && n <= 20) {
+                display.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. ✨";
+            } else if (n > 20 && n <= 100) {
+                display.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. 🌿";
             } else {
-                result.innerText = "Tetaplah semangat menjalani hari!";
+                display.innerHTML = "Tetaplah kuat, hari indah akan datang.";
             }
         }
     </script>
-
 </body>
 </html>
