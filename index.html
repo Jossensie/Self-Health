@@ -3,79 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satu Alasan Lagi</title>
+    <title>Remy Appeiron - Galactic Soul</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400&family=Dancing+Script&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #fdf6f0;
-            --text: #4a4a4a;
-            --accent: #8db596;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background-color: #020617; color: #fff; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            min-height: 100vh;
+            align-items: center;
             text-align: center;
-            padding: 20px;
+            position: relative;
+            background: #000;
+            overflow: hidden;
         }
-        .container {
-            max-width: 500px;
-            padding: 30px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+
+        .stars-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(circle at center, #0a0f1a 0%, #000 100%);
         }
-        h1 { font-size: 1.5rem; color: var(--accent); }
-        p { line-height: 1.6; font-size: 1.1rem; }
-        .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 25px;
-            background-color: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: 0.3s;
+
+        /* Animasi Kupu-Kupu */
+        .butterfly {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(250, 204, 21, 0.6);
+            border-radius: 50% 50% 0 50%;
+            z-index: 5;
+            filter: blur(1px);
+            box-shadow: 0 0 10px #facc15;
+            animation: fly-butterfly linear infinite;
         }
-        .quote {
+
+        @keyframes fly-butterfly {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) rotate(360deg); opacity: 0; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            color: #facc15;
+            text-shadow: 0 0 30px rgba(250, 204, 21, 0.5);
+            letter-spacing: 12px;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: #94a3b8;
+            letter-spacing: 4px;
             font-style: italic;
-            margin-top: 30px;
-            opacity: 0.8;
-            font-size: 0.9rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
+
+        .footer-nav {
+            position: absolute;
+            bottom: 60px;
+            z-index: 10;
+        }
+
+        .web-link { 
+            font-family: 'Orbitron', sans-serif; 
+            color: #facc15; 
+            text-decoration: none; 
+            border: 1px solid rgba(250, 204, 21, 0.4); 
+            padding: 14px 40px; 
+            border-radius: 40px; 
+            transition: 0.4s; 
+            background: rgba(0,0,0,0.3); 
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            letter-spacing: 3px;
+        }
+
+        .web-link:hover { background: #facc15; color: #000; box-shadow: 0 0 40px #facc15; }
+
+        /* --- SLIDE PAGE --- */
+        #slides { 
+            display: none; 
+            opacity: 0;
+            min-height: 100vh; 
+            padding: 100px 20px; 
+            background: linear-gradient(to bottom, #05070a, #020617);
+            transition: opacity 1.5s ease;
+        }
+
+        .slide-content { max-width: 1100px; margin: 0 auto; }
+        .slide-header { 
+            font-family: 'Orbitron', sans-serif; 
+            color: #facc15; 
+            font-size: 2rem; 
+            margin-bottom: 60px; 
+            text-align: center;
+            letter-spacing: 10px;
+        }
+
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; 
+        }
+
+        .card { 
+            background: rgba(255, 255, 255, 0.02); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            transition: 0.5s ease;
+        }
+
+        .card:hover { transform: translateY(-15px); border-color: rgba(250, 204, 21, 0.4); background: rgba(255, 255, 255, 0.05); }
+        .card-image { width: 100%; height: 260px; object-fit: cover; filter: grayscale(30%); transition: 0.5s; }
+        .card:hover .card-image { filter: grayscale(0%); }
+        .card-body { padding: 30px; }
+        .card-body h3 { font-family: 'Orbitron', sans-serif; color: #facc15; margin-bottom: 15px; font-size: 1.2rem; letter-spacing: 2px; }
+        .card-body p { color: #94a3b8; font-size: 0.95rem; line-height: 1.8; font-style: italic; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Terima kasih sudah bertahan sejauh ini.</h1>
-    <p>Dunia mungkin terasa sangat bising dan berat hari ini, tapi kehadiranmu adalah sebuah anugerah yang nyata.</p>
-    <p>Istirahatlah sejenak, ambil napas dalam-dalam. Kamu tidak harus menyelesaikan semuanya hari ini.</p>
-    
-    <a href="#" class="button" onclick="ubahPesan()">Butuh alasan lain?</a>
+    <audio id="spaceMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="quote" id="quote">"Bunga tidak mekar dalam semalam, begitu juga dengan ketenanganmu."</div>
-</div>
+    <section class="hero-section" id="hero">
+        <div class="stars-background" id="star-container"></div>
+        
+        <div class="hero-content">
+            <h1>REMY APPEIRON</h1>
+            <p class="subtitle">"Kita hanyalah debu bintang yang mencoba mencari jalan pulang di antara sunyinya semesta."</p>
+        </div>
 
-<script>
-    const pesan = [
-        "Kamu layak dicintai, terutama oleh dirimu sendiri.",
-        "Mendung tidak bertahan selamanya, matahari akan kembali.",
-        "Satu langkah kecil tetaplah sebuah kemajuan.",
-        "Dunia lebih indah karena ada kamu di dalamnya.",
-        "Tidak apa-apa untuk merasa tidak baik-baik saja."
-    ];
+        <div class="footer-nav">
+            <a onclick="jalankanPage()" class="web-link">WSUP HOMIE..</a>
+        </div>
+    </section>
 
-    function ubahPesan() {
-        const randomPesan = pesan[Math.floor(Math.random() * pesan.length)];
-        document.getElementById('quote').innerText = `"${randomPesan}"`;
-    }
-</script>
+    <section id="slides">
+        <div class="slide-content">
+            <h2 class="slide-header">DEEP DISCOVERY</h2>
+            <div class="grid-container">
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800" class="card-image">
+                    <div class="card-body">
+                        <h3>01. THE NEBULA</h3>
+                        <p>"Tempat di mana kehancuran berubah menjadi kelahiran. Seperti hati manusia, ia harus hancur sebelum akhirnya melahirkan bintang baru yang bersinar."</p>
+                    </div>
+                </div>
 
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1543722530-d2c3201371e7?q=80&w=1000" class="card-image">
+                    <div class="card-body">
+                        <h3>02. BLACK HOLE</h3>
+                        <p>"Sebuah kesunyian yang abadi. Mengajarkan kita bahwa ada luka yang terlalu dalam untuk diceritakan, bahkan cahaya pun tak sanggup melaluinya."</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1529788295308-1eace6f67388?w=800" class="card-image">
+                    <div class="card-body">
+                        <h3>03. THE SUN</h3>
+                        <p>"Ia berdiri sendirian untuk menerangi segalanya. Terkadang, menjadi kuat berarti bersedia terbakar dalam sepi demi mereka yang kita cintai."</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800" class="card-image">
+                    <div class="card-body">
+                        <h3>04. EARTH</h3>
+                        <p>"Satu-satunya titik biru di tengah kegelapan yang luas. Rumah bagi tawa dan air mata, yang seringkali kita lupakan betapa rapuhnya ia."</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?w=800" class="card-image">
+                    <div class="card-body">
+                        <h3>05. MARS</h3>
+                        <p>"Padang pasir yang merindukan air. Seperti mimpi-mimpi lama yang tertimbun debu, menunggu seseorang untuk datang dan menghidupkannya kembali."</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?w=800" class="card-image">
+                    <div class="card-body">
+                        <h3>06. SATURN</h3>
+                        <p>"Keindahan yang dikelilingi oleh puing-puing es. Bukti bahwa sisa-sisa kehancuran bisa membentuk cincin yang paling megah di alam semesta."</p>
+                    </div>
+                </div>
+                
+            </div>
+            <p style="text-align: center; margin-top: 100px; font-family: 'Orbitron'; color: #facc15; font-size: 0.7rem; opacity: 0.4; letter-spacing: 5px;">
+                © 2026 APPEIRON COMMUNITY • LOST IN SPACE
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // BINTANG & KUPU-KUPU OTOMATIS
+        const container = document.getElementById('star-container');
+        
+        // Buat Bintang
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            container.appendChild(star);
+        }
+
+        // Buat Kupu-Kupu (Butterfly)
+        function createButterfly() {
+            const b = document.createElement('div');
+            b.className = 'butterfly';
+            b.style.left = Math.random() * 100 + '%';
+            b.style.top = Math.random() * 100 + '%';
+            
+            // Random direction
+            const x = (Math.random() - 0.5) * 400 + 'px';
+            const y = (Math.random() - 0.5) * 400 + 'px';
+            b.style.setProperty('--x', x);
+            b.style.setProperty('--y', y);
+            
+            b.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            container.appendChild(b);
+
+            // Hapus kupu-kupu lama agar tidak berat
+            setTimeout(() => { b.remove(); }, 15000);
+        }
+
+        setInterval(createButterfly, 1000);
+
+        function jalankanPage() {
+            const audio = document.getElementById("spaceMusic");
+            audio.volume = 0.3;
+            audio.play();
+
+            var target = document.getElementById("slides");
+            target.style.display = "block";
+            setTimeout(function() {
+                target.style.opacity = "1";
+                target.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+    </script>
 </body>
 </html>
