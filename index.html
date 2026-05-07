@@ -3,144 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pilih Untuk Hidup</title>
+    <title>Tetaplah Disini</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;1,300&family=Inter:wght@300;400&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #ffffff;
+            background: #ffffff;
+            color: #2c3e50;
             font-family: 'Inter', sans-serif;
             overflow: hidden;
         }
 
         /* Container Horizontal */
-        .main-wrapper {
+        .slider {
             display: flex;
             width: 300vw;
             height: 100vh;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
-        .main-wrapper::-webkit-scrollbar { display: none; }
+        .slider::-webkit-scrollbar { display: none; }
 
         section {
             width: 100vw;
             height: 100vh;
             scroll-snap-align: start;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             position: relative;
-            padding: 20px;
+            padding: 40px;
+        }
+
+        .content {
+            max-width: 500px;
             text-align: center;
+            z-index: 10;
         }
 
-        /* Simbol Larangan Menyerah (Pengganti Visual Sensitif) */
-        .warning-sign {
-            width: 120px;
-            height: 120px;
-            border: 8px solid #e74c3c;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .warning-sign::before {
-            content: '✕';
-            font-size: 80px;
-            color: #e74c3c;
-            font-weight: bold;
+        h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            letter-spacing: -0.5px;
         }
 
-        h1 { font-size: 1.8rem; color: #2c3e50; margin-bottom: 10px; z-index: 5; }
-        p { font-size: 1rem; color: #7f8c8d; max-width: 300px; z-index: 5; }
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #576574;
+            font-weight: 300;
+        }
 
-        /* Kupu-kupu Realistik & Mengikuti Page */
+        /* --- Animasi Kupu-Kupu Realistik --- */
+        .butterfly-world {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300vw; /* Panjang mengikuti slider */
+            height: 100vh;
+            pointer-events: none;
+            z-index: 5;
+        }
+
         .butterfly {
             position: absolute;
-            width: 30px;
-            height: 30px;
             transform-style: preserve-3d;
-            z-index: 10;
-            pointer-events: none;
+            animation: fly-float 15s infinite ease-in-out;
         }
 
         .wing {
             position: absolute;
-            width: 15px;
-            height: 20px;
-            background: linear-gradient(45deg, #3498db, #8e44ad);
-            border-radius: 50% 50% 20% 50%;
-            opacity: 0.8;
+            width: 18px;
+            height: 24px;
+            background: linear-gradient(135deg, #d1d8e0, #a5b1c2);
+            border-radius: 50% 50% 20% 60%;
+            opacity: 0.6;
         }
 
-        .wing-left {
-            left: 0;
+        .left {
             transform-origin: right center;
-            animation: flap-l 0.15s infinite alternate;
+            animation: flap-left 0.15s infinite alternate ease-in-out;
         }
 
-        .wing-right {
+        .right {
             right: 0;
             transform-origin: left center;
-            border-radius: 50% 50% 50% 20%;
-            animation: flap-r 0.15s infinite alternate;
+            border-radius: 50% 50% 60% 20%;
+            animation: flap-right 0.15s infinite alternate ease-in-out;
         }
 
-        @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(75deg); } }
-        @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-75deg); } }
+        @keyframes flap-left { from { transform: rotateY(0deg); } to { transform: rotateY(75deg); } }
+        @keyframes flap-right { from { transform: rotateY(0deg); } to { transform: rotateY(-75deg); } }
 
-        /* Posisi Kupu-kupu yang tersebar di sepanjang 300vw */
-        .bf1 { top: 20%; left: 30vw; animation: float 10s infinite; }
-        .bf2 { top: 60%; left: 120vw; animation: float 12s infinite; }
-        .bf3 { top: 30%; left: 210vw; animation: float 8s infinite; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-50px) rotate(10deg); }
+        @keyframes fly-float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-40px) rotate(-5deg); }
         }
 
-        /* Pohon Estetik */
-        .tree {
+        /* --- Dekorasi Pohon Lembut --- */
+        .tree-bg {
             position: absolute;
-            bottom: 0;
-            width: 200px;
-            opacity: 0.2;
+            bottom: -20px;
+            width: 100%;
+            height: 40vh;
+            background: url('https://www.transparentpng.com/download/tree/W8M7lB-tree-transparent-image.png') no-repeat bottom center;
+            background-size: contain;
+            opacity: 0.05;
             z-index: 1;
+            filter: grayscale(100%);
+        }
+
+        .hint {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: #bdc3c7;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
-        <!-- Page 1: Peringatan -->
+    <div class="hint">Geser Perlahan</div>
+
+    <!-- Kupu-kupu yang menyebar di koordinat luas -->
+    <div class="butterfly-world">
+        <div class="butterfly" style="top:20vh; left:15vw;"><div class="wing left"></div><div class="wing right"></div></div>
+        <div class="butterfly" style="top:50vh; left:85vw;"><div class="wing left" style="background:#ced6e0"></div><div class="wing right" style="background:#ced6e0"></div></div>
+        <div class="butterfly" style="top:15vh; left:140vw;"><div class="wing left"></div><div class="wing right"></div></div>
+        <div class="butterfly" style="top:70vh; left:210vw;"><div class="wing left"></div><div class="wing right"></div></div>
+        <div class="butterfly" style="top:30vh; left:280vw;"><div class="wing left"></div><div class="wing right"></div></div>
+    </div>
+
+    <div class="slider">
+        <!-- PAGE 1 -->
         <section>
-            <div class="warning-sign"></div>
-            <h1>JANGAN MENYERAH</h1>
-            <p>Pikiranmu mungkin berbohong, mengatakan tak ada jalan keluar. Tapi mengakhiri semuanya <b>DILARANG</b>. Kamu jauh lebih berharga dari masalahmu.</p>
+            <div class="tree-bg"></div>
+            <div class="content">
+                <h2>Mungkin hari ini sangat berat...</h2>
+                <p>Napasmu terasa sesak, dan dunia seolah kehilangan warnanya. Tapi dengarlah, mengakhiri perjalananmu bukanlah jawaban atas rasa sakit itu.</p>
+            </div>
         </section>
 
-        <!-- Page 2: Harapan -->
+        <!-- PAGE 2 -->
         <section>
-            <h1>Lihat Sekitarmu</h1>
-            <p>Seperti pohon yang tetap tegak meski badai menerjang, kamu punya kekuatan untuk tumbuh kembali.</p>
-            <img class="tree" src="https://www.transparentpng.com/download/tree/W8M7lB-tree-transparent-image.png" alt="Tree">
+            <div class="tree-bg" style="transform: scaleX(-1);"></div>
+            <div class="content">
+                <h2>Ceritamu belum selesai.</h2>
+                <p>Rasa sakit yang kamu rasakan hari ini adalah bukti bahwa kamu masih memiliki kapasitas untuk merasakan. Jika ada kekuatan untuk menyerah, gunakanlah sedikit saja sisa kekuatan itu untuk bertahan satu hari lagi.</p>
+            </div>
         </section>
 
-        <!-- Page 3: Kebebasan -->
+        <!-- PAGE 3 -->
         <section>
-            <h1>Metamorfosis</h1>
-            <p>Jadilah seperti kupu-kupu. Lewati masa gelap kepompong untuk terbang bebas. Bertahanlah sedikit lagi.</p>
+            <div class="content">
+                <h2>Pulanglah ke dirimu sendiri.</h2>
+                <p>Dunia akan kehilangan sesuatu yang tak tergantikan jika kamu pergi. Kepakan sayap kupu-kupu mungkin kecil, tapi ia mengubah arah angin. Kehadiranmu pun begitu. Tetaplah disini.</p>
+            </div>
         </section>
-
-        <!-- Kupu-kupu yang tersebar di koordinat lebar -->
-        <div class="butterfly bf1"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
-        <div class="butterfly bf2"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
-        <div class="butterfly bf3"><div class="wing wing-left"></div><div class="wing wing-right"></div></div>
     </div>
 
 </body>
