@@ -44,7 +44,6 @@
         #page2 { 
             background: linear-gradient(180deg, #fdfdfd 0%, #e8f5e9 100%); 
         }
-        /* Dekorasi Rumput Page 2 */
         #page2::after {
             content: "";
             position: absolute;
@@ -53,32 +52,25 @@
             height: 40px;
             background: url('https://www.transparentpng.com/download/grass/Z9vP4S-grass-free-transparent-png.png') repeat-x;
             background-size: contain;
-            opacity: 0.3;
+            opacity: 0.2;
         }
 
+        /* Tema Berharap: Sunrise Gradation */
         #page3 { 
-            background: linear-gradient(180deg, #fdfdfd 0%, #eceff1 100%); 
-        }
-        /* Dekorasi Manusia Sedih Page 3 */
-        .human-silhouette {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 80px;
-            opacity: 0.1;
-            filter: grayscale(100%);
+            background: linear-gradient(180deg, #fdfdfd 0%, #ffeaa7 50%, #fab1a0 100%); 
+            overflow: hidden;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             padding: 40px 30px;
             border-radius: 32px;
             max-width: 340px;
             width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.03);
             text-align: center;
             z-index: 10;
         }
@@ -127,47 +119,37 @@
             border: 1px solid rgba(0,0,0,0.1);
             margin: 15px 0 10px 0;
             text-align: center;
+            outline: none;
         }
 
         .btn-submit {
-            background: #81c784;
+            background: #e17055;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
+            position: relative;
+        }
+
+        /* --- Animasi Bintang --- */
+        .star {
+            position: absolute;
+            background: #ffeaa7;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            width: 15px;
+            height: 15px;
+            pointer-events: none;
+            z-index: 100;
         }
 
         .copyright {
             margin-top: 40px;
             font-size: 11px;
-            color: #95a5a6;
+            color: #636e72;
             letter-spacing: 0.5px;
+            opacity: 0.8;
         }
-
-        /* --- Kupu-Kupu --- */
-        .butterfly {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            transform-style: preserve-3d;
-            z-index: 20;
-        }
-        .wing {
-            position: absolute;
-            width: 12px;
-            height: 18px;
-            background: linear-gradient(to top, #81ecec, #00cec9);
-            border-radius: 50% 50% 10% 50%;
-            opacity: 0.7;
-        }
-        .wing.right { left: 12px; border-radius: 50% 50% 50% 10%; transform-origin: left center; animation: flap-r 0.15s infinite alternate; }
-        .wing.left { transform-origin: right center; animation: flap-l 0.15s infinite alternate; }
-        @keyframes flap-l { from { transform: rotateY(0deg); } to { transform: rotateY(70deg); } }
-        @keyframes flap-r { from { transform: rotateY(0deg); } to { transform: rotateY(-70deg); } }
-
-        .bf-1 { top: 20%; left: 10%; animation: fly1 20s infinite linear; }
-        @keyframes fly1 { 0% { transform: translate(0,0); } 50% { transform: translate(50vw, 20vh); } 100% { transform: translate(100vw, 0); } }
 
         .hint {
             position: fixed;
@@ -185,10 +167,8 @@
 
     <div class="hint">Geser perlahan</div>
 
-    <div class="butterfly bf-1"><div class="wing left"></div><div class="wing right"></div></div>
-
     <div class="viewport">
-        <!-- PAGE 1: Awal -->
+        <!-- PAGE 1 -->
         <section id="page1">
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
@@ -196,7 +176,7 @@
             </div>
         </section>
 
-        <!-- PAGE 2: Rumput Sejuk -->
+        <!-- PAGE 2 -->
         <section id="page2">
             <div class="card">
                 <h1>Jangan mengakhiri bab ini.</h1>
@@ -204,9 +184,8 @@
             </div>
         </section>
 
-        <!-- PAGE 3: Manusia Sedih & Interaksi -->
+        <!-- PAGE 3 -->
         <section id="page3">
-            <img src="https://cdn-icons-png.flaticon.com/512/3011/3011270.png" class="human-silhouette" alt="Sorrow">
             <div class="card">
                 <h1>Pulang ke arah cahaya.</h1>
                 <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
@@ -216,8 +195,8 @@
                 <div class="interaction-area" id="interactionArea">
                     <p style="font-weight: 500; color: #1e272e;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
                     <input type="number" id="ageInput" placeholder="Masukkan angka...">
-                    <button class="btn-submit" onclick="processAge()">Kirim</button>
-                    <div id="resultDisplay" style="margin-top:15px; font-weight:500;"></div>
+                    <button class="btn-submit" onclick="processAge(event)">Kirim</button>
+                    <div id="resultDisplay" style="margin-top:15px; font-weight:500; min-height: 20px;"></div>
                 </div>
 
                 <div class="copyright">
@@ -233,7 +212,30 @@
             document.getElementById('interactionArea').style.display = 'block';
         }
 
-        function processAge() {
+        function createStar(x, y) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            document.body.appendChild(star);
+
+            const destinationX = x + (Math.random() - 0.5) * 200;
+            const destinationY = y + (Math.random() - 0.5) * 200;
+            const rotation = Math.random() * 360;
+
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+
+            const animation = star.animate([
+                { transform: `translate(0, 0) rotate(0deg)`, opacity: 1 },
+                { transform: `translate(${destinationX - x}px, ${destinationY - y}px) rotate(${rotation}deg)`, opacity: 0 }
+            ], {
+                duration: 1000 + Math.random() * 500,
+                easing: 'ease-out'
+            });
+
+            animation.onfinish = () => star.remove();
+        }
+
+        function processAge(event) {
             const age = document.getElementById('ageInput').value;
             const display = document.getElementById('resultDisplay');
             
@@ -242,14 +244,21 @@
                 return;
             }
 
-            const n = parseInt(age);
-            if (n >= 1 && n <= 20) {
-                display.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. :) ";
-            } else if (n > 20 && n <= 100) {
-                display.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. :>";
-            } else {
-                display.innerHTML = "Tetaplah kuat, hari indah akan datang.";
+            // Jalankan animasi bintang
+            for (let i = 0; i < 15; i++) {
+                createStar(event.clientX, event.clientY);
             }
+
+            const n = parseInt(age);
+            setTimeout(() => {
+                if (n >= 1 && n <= 20) {
+                    display.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. ✨";
+                } else if (n > 20 && n <= 100) {
+                    display.innerHTML = "Teruslah bertahan, mungkin di depan sana ada kebahagiaan menanti. ☀️";
+                } else {
+                    display.innerHTML = "Tetaplah kuat, hari indah akan datang.";
+                }
+            }, 200);
         }
     </script>
 </body>
