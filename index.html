@@ -2,197 +2,21 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Satu Napas Lagi</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&family=Playfair+Display:ital@1&display=swap');
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
+        /* Kunci total agar tidak bisa scroll ke bawah */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hilangkan scroll standar */
             background: #0f1419;
             font-family: 'Plus Jakarta Sans', sans-serif;
             color: #d1d8e0;
-            overflow: hidden;
-        }
-
-        /* Tombol Spotify */
-        .spotify-link {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: #1DB954; /* Warna khas Spotify */
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
-            transition: 0.3s ease;
-        }
-
-        .spotify-link:hover {
-            transform: scale(1.05);
-            background: #1ed760;
-        }
-
-        /* Latar Belakang Mendung */
-        .rain-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #1e272e, #000000);
-            z-index: -1;
-        }
-
-        /* Animasi Hujan Halus */
-        .rain-drop {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.05);
-            width: 1px;
-            height: 60px;
-            top: -100px;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh); }
-        }
-
-        .viewport {
-            display: flex;
-            width: 300vw;
-            height: 100vh;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
-        .viewport::-webkit-scrollbar { display: none; }
-
-        section {
-            width: 100vw; height: 100vh;
-            scroll-snap-align: start;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            padding: 30px; position: relative;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 40px 30px;
-            border-radius: 35px;
-            max-width: 340px; width: 90%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            text-align: center; z-index: 10;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 1.7rem;
-            margin-bottom: 20px; color: #f1f2f6;
-        }
-
-        p { line-height: 1.8; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
-
-        .btn-open {
-            margin-top: 25px; padding: 12px 24px;
-            background: transparent; color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px; cursor: pointer; transition: 0.3s;
-        }
-
-        .interaction-area { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        input {
-            width: 100%; padding: 12px; border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.05); color: white;
-            margin: 15px 0 10px 0; text-align: center; outline: none;
-        }
-
-        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; }
-
-        .star {
-            position: absolute; background: #f1c40f;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 12px; height: 12px; pointer-events: none; z-index: 100;
-        }
-
-        .copyright { margin-top: 40px; font-size: 10px; color: #57606f; text-transform: uppercase; letter-spacing: 2px; }
-        .hint { position: fixed; bottom: 20px; width: 100%; text-align: center; font-size: 8px; color: #57606f; letter-spacing: 4px; }
-    </style>
-</head>
-<body>
-
-    <!-- Tombol Spotify -->
-    <a href="https://open.spotify.com/user/31ikkx27wn3du3mrz7yxbgpqem5m?si=YWSh2ztYS2qzcpDiAjwtBg" target="_blank" class="spotify-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.223.367-.703.483-1.07.259-2.937-1.795-6.634-2.201-10.989-1.205-.418.096-.837-.168-.933-.586-.096-.418.168-.837.586-.933 4.773-1.091 8.865-.624 12.147 1.383.367.224.483.704.259 1.071zm1.465-3.262c-.282.457-.881.605-1.338.323-3.36-2.067-8.483-2.665-12.456-1.458-.513.155-1.053-.136-1.208-.65-.155-.513.136-1.053.65-1.208 4.542-1.378 10.187-.703 14.03 1.656.456.28.605.88.322 1.337zm.126-3.413C15.011 8.214 8.274 7.99 4.35 9.182c-.612.185-1.261-.166-1.446-.777-.185-.612.166-1.261.777-1.446 4.496-1.365 11.942-1.11 16.633 1.674.551.327.734 1.041.407 1.592-.327.551-1.041.734-1.592.407z"/></svg>
-        Dengarkan Musik
-    </a>
-
-    <div id="rain-container"></div>
-    <div class="hint">GESER PERLAHAN</div>
-
-    <div class="viewport">
-        <section>
-            <div class="card">
-                <h1>Heningkan sejenak...</h1>
-                <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
-            </div>
-        </section>
-
-        <section>
-            <div class="card">
-                <h1>Jangan mengakhiri bab ini.</h1>
-                <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
-            </div>
-        </section>
-
-        <section>
-            <div class="card">
-                <h1>Pulang ke arah cahaya.</h1>
-                <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
-                
-                <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
-
-                <div class="interaction-area" id="interactionArea">
-                    <p style="font-weight: 500; color: #f1f2f6;">Hallooo apakah kami boleh tau umur kamu berapa? </p>
-                    <input type="number" id="ageInput" placeholder="Ketik angka...">
-                    <button class="btn-submit" onclick="processAge(event)">Kirim</button>
-                    <div id="resultDisplay" style="margin-top:20px; font-size: 14px; font-weight: 500;"></div>
-                </div>
-
-                <div class="copyright">
-                    Selasar Pulang © Remy
-                </div>
-            </div>
-        </section>
-    </div>
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Satu Napas Lagi</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500&family=Playfair+Display:ital@1&display=swap');
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background: #0f1419;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #d1d8e0;
-            overflow: hidden;
         }
 
         /* Tombol Spotify */
@@ -204,18 +28,16 @@
             background: #1DB954;
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 10px 18px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
+            font-size: 12px;
+            font-weight: 600;
             box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
             transition: 0.3s ease;
         }
-
-        .spotify-link:hover { transform: scale(1.05); background: #1ed760; }
 
         .rain-bg {
             position: fixed;
@@ -224,87 +46,92 @@
             z-index: -1;
         }
 
+        /* Container Geser Samping */
         .viewport {
             display: flex;
-            width: 300vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow-x: auto;
+            overflow-y: hidden; /* Kunci sumbu Y di sini juga */
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
+            -ms-overflow-style: none;
         }
         .viewport::-webkit-scrollbar { display: none; }
 
         section {
-            width: 100vw; height: 100vh;
+            flex: 0 0 100vw; /* Pastikan tiap section tepat 100% lebar layar */
+            height: 100vh;
             scroll-snap-align: start;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            padding: 30px; position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
         .card {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 40px 30px;
-            border-radius: 35px;
-            max-width: 340px; width: 90%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            text-align: center; z-index: 10;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 25px;
+            border-radius: 30px;
+            max-width: 340px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 1.7rem;
-            margin-bottom: 20px; color: #f1f2f6;
+            font-style: italic; font-size: 1.6rem;
+            margin-bottom: 18px; color: #f1f2f6;
         }
 
-        p { line-height: 1.8; font-size: 0.95rem; color: #a4b0be; font-weight: 300; }
+        p { line-height: 1.7; font-size: 0.9rem; color: #a4b0be; font-weight: 300; }
 
         .btn-open {
-            margin-top: 25px; padding: 12px 24px;
+            margin-top: 25px; padding: 12px 25px;
             background: transparent; color: #fff;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px; cursor: pointer; transition: 0.3s;
+            border-radius: 50px; cursor: pointer;
         }
 
-        /* --- Area Interaksi --- */
-        .interaction-area { display: none; margin-top: 25px; animation: fadeIn 1s ease; }
+        .interaction-area { display: none; margin-top: 20px; }
         
         input {
             width: 100%; padding: 12px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05); color: white;
             margin: 15px 0 10px 0; text-align: center; outline: none;
+            font-size: 16px;
         }
 
-        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; }
+        .btn-submit { background: #3d4e5e; color: white; border: none; padding: 10px 25px; border-radius: 10px; cursor: pointer; width: 100%; }
 
         #resultDisplay {
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.6;
-            color: #f1f2f6;
-            animation: fadeIn 1.5s ease;
+            margin-top: 10px; font-size: 14px;
+            color: #f1f2f6; line-height: 1.6;
+            animation: fadeIn 1s forwards;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         .star {
             position: absolute; background: #f1c40f;
             clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            width: 12px; height: 12px; pointer-events: none; z-index: 100;
+            width: 10px; height: 10px; pointer-events: none; z-index: 100;
         }
 
-        .copyright { margin-top: 40px; font-size: 10px; color: #57606f; text-transform: uppercase; letter-spacing: 2px; }
+        .copyright { margin-top: 35px; font-size: 9px; color: #57606f; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <a href="https://open.spotify.com/user/31ikkx27wn3du3mrz7yxbgpqem5m?si=YWSh2ztYS2qzcpDiAjwtBg" target="_blank" class="spotify-link">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.223.367-.703.483-1.07.259-2.937-1.795-6.634-2.201-10.989-1.205-.418.096-.837-.168-.933-.586-.096-.418.168-.837.586-.933 4.773-1.091 8.865-.624 12.147 1.383.367.224.483.704.259 1.071zm1.465-3.262c-.282.457-.881.605-1.338.323-3.36-2.067-8.483-2.665-12.456-1.458-.513.155-1.053-.136-1.208-.65-.155-.513.136-1.053.65-1.208 4.542-1.378 10.187-.703 14.03 1.656.456.28.605.88.322 1.337zm.126-3.413C15.011 8.214 8.274 7.99 4.35 9.182c-.612.185-1.261-.166-1.446-.777-.185-.612.166-1.261.777-1.446 4.496-1.365 11.942-1.11 16.633 1.674.551.327.734 1.041.407 1.592-.327.551-1.041.734-1.592.407z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.508 17.302c-.223.367-.703.483-1.07.259-2.937-1.795-6.634-2.201-10.989-1.205-.418.096-.837-.168-.933-.586-.096-.418.168-.837.586-.933 4.773-1.091 8.865-.624 12.147 1.383.367.224.483.704.259 1.071zm1.465-3.262c-.282.457-.881.605-1.338.323-3.36-2.067-8.483-2.665-12.456-1.458-.513.155-1.053-.136-1.208-.65-.155-.513.136-1.053.65-1.208 4.542-1.378 10.187-.703 14.03 1.656.456.28.605.88.322 1.337zm.126-3.413C15.011 8.214 8.274 7.99 4.35 9.182c-.612.185-1.261-.166-1.446-.777-.185-.612.166-1.261.777-1.446 4.496-1.365 11.942-1.11 16.633 1.674.551.327.734 1.041.407 1.592-.327.551-1.041.734-1.592.407z"/></svg>
         Spotify
     </a>
 
@@ -314,32 +141,30 @@
         <section>
             <div class="card">
                 <h1>Heningkan sejenak...</h1>
-                <p>Suara-suara di kepalamu mungkin sedang berteriak kencang, memintamu untuk berhenti. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
+                <p>Suara-suara di kepalamu mungkin sedang berteriak kencang. Tapi hari ini, kita hanya butuh satu kemenangan kecil: <b>Terus bernapas.</b></p>
             </div>
         </section>
 
         <section>
             <div class="card">
-                <h1>Jangan mengakhiri bab ini.</h1>
-                <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingatlah, ada halaman-halaman yang belum kamu tulis, tempat-tempat yang belum kamu kunjungi, dan senyum yang belum kamu bagi.</p>
+                <h1>Jangan menyerah.</h1>
+                <p>Kamu mungkin merasa ingin menutup buku ceritamu sekarang. Tapi ingat, ada halaman-halaman indah yang belum kamu tulis.</p>
             </div>
         </section>
 
         <section>
             <div class="card">
-                <h1>Pulang ke arah cahaya.</h1>
-                <p>Mengakhiri hidup tidak pernah menjadi jawaban atas rasa sakit. Rasa sakit itu sementara, tapi keberadaanmu adalah berkah selamanya.</p>
+                <h1>Tetaplah di sini.</h1>
+                <p>Mengakhiri semuanya bukan jawaban. Keberadaanmu adalah hal berharga bagi seseorang di luar sana.</p>
                 
                 <button class="btn-open" id="btnOpen" onclick="showQuestion()">Bicara dengan kami</button>
 
                 <div class="interaction-area" id="interactionArea">
-                    <!-- Bungkus pertanyaan agar mudah dihilangkan -->
-                    <div id="questionContent">
-                        <p style="font-weight: 500; color: #f1f2f6; margin-bottom: 5px;">Hallooo apakah kami boleh tau umur kamu berapa?</p>
-                        <input type="number" id="ageInput" placeholder="Ketik angka...">
+                    <div id="questionContainer">
+                        <p style="font-weight: 500; color: #f1f2f6;">Berapa umur kamu sekarang?</p>
+                        <input type="number" id="ageInput" placeholder="Masukkan umur...">
                         <button class="btn-submit" onclick="processAge(event)">Kirim</button>
                     </div>
-                    
                     <div id="resultDisplay"></div>
                 </div>
 
@@ -358,35 +183,33 @@
             const star = document.createElement('div');
             star.className = 'star';
             document.body.appendChild(star);
-            const dX = (Math.random() - 0.5) * 300;
-            const dY = (Math.random() - 0.5) * 300;
+            const dX = (Math.random() - 0.5) * 200;
+            const dY = (Math.random() - 0.5) * 200;
             star.style.left = x + 'px';
             star.style.top = y + 'px';
             star.animate([
                 { transform: 'scale(1)', opacity: 1 },
                 { transform: `translate(${dX}px, ${dY}px) scale(0)`, opacity: 0 }
-            ], { duration: 2000, easing: 'ease-out' }).onfinish = () => star.remove();
+            ], { duration: 1500, easing: 'ease-out' }).onfinish = () => star.remove();
         }
 
         function processAge(e) {
-            const val = document.getElementById('ageInput').value;
+            const ageInput = document.getElementById('ageInput');
             const res = document.getElementById('resultDisplay');
-            const questionWrap = document.getElementById('questionContent');
+            const questionContainer = document.getElementById('questionContainer');
             
-            if(!val) return;
+            if(!ageInput.value) return;
 
-            // Efek Bintang
-            for(let i=0; i<25; i++) createStar(e.clientX, e.clientY);
+            const rect = e.target.getBoundingClientRect();
+            for(let i=0; i<15; i++) createStar(rect.left + rect.width/2, rect.top);
 
-            // 1. Hilangkan teks pertanyaan & input
-            questionWrap.style.display = 'none';
+            questionContainer.style.display = 'none';
 
-            // 2. Munculkan Jawaban
-            const n = parseInt(val);
+            const n = parseInt(ageInput.value);
             if (n <= 20) {
-                res.innerHTML = "Kamu terlalu muda untuk mengakhiri hidup. Masih banyak hal indah yang menunggu untuk kamu temukan. ✨";
+                res.innerHTML = "Kamu masih punya banyak waktu untuk melihat dunia yang lebih cerah. Teruslah melangkah, ya. ✨";
             } else {
-                res.innerHTML = "Teruslah bertahan, setiap langkah kecilmu sangat berarti. Pelangi akan datang setelah badai ini mereda. ☁️";
+                res.innerHTML = "Kamu sudah bertahan sejauh ini, itu luar biasa. Jangan biarkan badai ini menghentikanmu. ☁️";
             }
         }
     </script>
